@@ -1,6 +1,36 @@
+h1{
+    font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    text-align: center;
+    margin-top: 20px;
+}
 body{
-
+    margin: 0;
 }
 button{
     background-color: deepskyblue;
+    font-family: sans-serif;
+    border-style: solid;
+    font-size: large;
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+}
+input {
+    font-family: sans-serif;
+    font-size: large;
+    margin: 5px;
+    padding: 10px;
+}
+button:hover{
+    background-color: aqua;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
