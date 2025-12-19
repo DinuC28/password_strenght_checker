@@ -1,0 +1,57 @@
+body{
+    font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    margin: auto;
+    padding: 10px;
+}
+header{
+    background-color: deepskyblue;
+    padding: 20px;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    margin-top: 20px;
+}
+button{
+    background-color: deepskyblue;
+    font-family: sans-serif;
+    border-style: solid;
+    font-size: large;
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+}
+input {
+    font-family: sans-serif;
+    font-size: large;
+    margin: 5px;
+    padding: 10px;
+}
+button:hover{
+    background-color: aqua;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+.input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+h3{
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: x-large;
+}
+
