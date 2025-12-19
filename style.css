@@ -1,10 +1,16 @@
-h1{
+body{
     font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    margin: auto;
+    padding: 10px;
+}
+header{
+    background-color: deepskyblue;
+    padding: 20px;
+    text-align: center;
+}
+h1{
     text-align: center;
     margin-top: 20px;
-}
-body{
-    margin: auto;
 }
 button{
     background-color: deepskyblue;
