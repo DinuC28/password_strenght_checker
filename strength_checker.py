@@ -7,6 +7,7 @@ def password_strength(password):
 
     if 8 <= length <= 16:
         score += 1
-    if 16 <= length <= 32:
+    if 16 <= length:
+        score += 2
 
 UserInput = "password123"
