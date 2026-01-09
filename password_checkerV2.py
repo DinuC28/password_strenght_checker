@@ -40,6 +40,10 @@ def repeating_character(password, maxRepeat):
     return True
 
 
+def digitChecker(password):
+    return password.isdigit()
+
+
 UserInput = "Dinu123!"
 
 print(password_length(UserInput))
