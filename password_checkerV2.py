@@ -44,6 +44,20 @@ def digitChecker(password):
     return password.isdigit()
 
 
+
+def checking_sequence(password, max_sequence_length):
+
+    passwordValue = [ord(c) for c in password]
+
+    for i in range(len(passwordValue) - max_sequence_length + 1):
+        sequence = passwordValue[i:i + max_sequence_length]
+        if(sequence == list(range(sequence[0], sequence[0] + max_sequence_length))
+            or sequence == list(range(sequence[0], sequence[0] + max_sequence_length, -1))
+        ):
+            return False
+    return True
+
+
 UserInput = "Dinu123!"
 
 print(password_length(UserInput))
