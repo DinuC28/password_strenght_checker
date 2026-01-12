@@ -1,6 +1,6 @@
 def password_length(password):
 
-    if len(password) >= 8 or len(password) <= 0:
+    if len(password) >= 8 and len(password) <= 16:
 
         lowerCase = False
         upperCase = False
@@ -17,9 +17,9 @@ def password_length(password):
             if not char.islnum():
                 return True
 
-        return False
+        return lowerCase and upperCase and character and number
     else:
-        return True
+        return False
 
 def repeating_character(password, maxRepeat):
 
@@ -58,7 +58,7 @@ def checking_sequence(password, max_sequence_length):
     return True
 
 
-UserInput = "Dinu123!"
+UserInput = "Dinu"
 
 print(password_length(UserInput))
-print(repeating_character(UserInput, 2))
+#print(repeating_character(UserInput, 2))
