@@ -75,5 +75,6 @@ def password_strength(password):
     return score
 
 
-UserInput = "Dinu2873@!£42686848"
+#Input = "Please enter your password"
+UserInput = "DInu3e39ue0"
 print(password_strength(UserInput))
