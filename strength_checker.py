@@ -23,34 +23,45 @@ def password_strength(password):
         score += 2
     else:
         score -= 1
+        print("The password is missing a lower case letter")
 
     if re.search(r"(?=.*[A-Z]).*", password):
         score += 2
     else:
         score -= 1
+        print("The password is missing a upper case letter")
 
     if re.search(r"(?=.*[0-9]).*", password):
         score += 4
     else:
         score -= 2
+        print("The password is missing a number")
 
     if re.search(r"(?=.*[!@#$%^&*]).*", password):
         score += 4
     else:
         score -= 2
+        print("The password is missing a special character")
 
 
     if score < 5:
         print("The password is not strong enough")
-    elif score <= 5 or score < 9:
+
+    elif score <=10:
         print("The password needs to be stronger")
-    elif score >= 10 or score <= 15:
-        print("The password is secure")
+
+    elif score <=15:
+        print("The password is strong")
+
     elif score > 15:
         print("The password is really strong")
+
+
+    if score < 0:
+        return 0
 
     return score
 
 
-UserInput = "dinu"
+UserInput = "Dinu2873@!£42686848"
 print(password_strength(UserInput))
