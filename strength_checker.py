@@ -53,6 +53,7 @@ def password_strength(password):
         print("The password is missing a special character")
 
 
+
     #check the score of the password
     if score < 5:
         print("The password is not strong enough")
