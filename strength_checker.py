@@ -12,15 +12,19 @@ def password_strength(password):
         print("The password is too short")
 
     elif length <= 8:
+        print("The password can be longer")
         score += 1
 
     elif length <= 16:
+        print("The length of the password is average")
         score += 2
 
     elif length <= 20:
+        print("The length of the password is really good")
         score += 3
 
     elif length > 20:
+        print("")
         score += 4
 
 
@@ -75,10 +79,8 @@ def password_strength(password):
     return score
 
 
-Input = "Enter your password"
-print(Input)
+print("Enter your password")
 UserInput = input()
-
 
 while UserInput == "":
     print("Please renter your password ")
