@@ -75,6 +75,15 @@ def password_strength(password):
     return score
 
 
-#Input = "Please enter your password"
-UserInput = "DInu3e39ue0"
+Input = "Enter your password"
+print(Input)
+UserInput = input()
+
+
+while UserInput == "":
+    print("Please renter your password ")
+    UserInput = input()
+
+
 print(password_strength(UserInput))
+
