@@ -61,4 +61,4 @@ def checking_sequence(password, max_sequence_length):
 UserInput = "Dinu"
 
 print(password_length(UserInput))
-#print(repeating_character(UserInput, 2))
+print(repeating_character(UserInput, 2))

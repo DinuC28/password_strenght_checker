@@ -78,6 +78,9 @@ def password_strength(password):
 
     return score
 
+def is_all_digits(password):
+    return password.isdigit()
+
 
 print("Enter your password")
 UserInput = input()
@@ -86,6 +89,11 @@ while UserInput == "":
     print("Please renter your password ")
     UserInput = input()
 
+print(is_all_digits(UserInput))
 
+while is_all_digits(UserInput) == True:
+    print("The password needs to include more than digits ")
+    print("Enter your password again")
+    UserInput = input()
 print(password_strength(UserInput))
 
