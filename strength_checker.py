@@ -78,14 +78,61 @@ def password_strength(password):
 
     return score
 
+def password_length(password):
+
+    if len(password) >= 8 and len(password) <= 16:
+
+        lowerCase = False
+        upperCase = False
+        character = False
+        number = False
+
+        for char in password:
+            if char.islower():
+                return True
+            if char.isupper():
+                return True
+            if char.isdigit():
+                return True
+            if not char.islnum():
+                return True
+
+        return lowerCase and upperCase and character and number
+    else:
+        return False
+
+#check if all the characters in the password are digits
+def is_all_digits(password):
+    return password.isdigit()
+
 
 print("Enter your password")
 UserInput = input()
 
+#check empty string
 while UserInput == "":
     print("Please renter your password ")
     UserInput = input()
 
+password_length(UserInput)
+
+#check if the password is too short
+while password_length(UserInput) == False:
+    print("The password does not fit the length requirement of 8 characters or more")
+    print("Please enter your password again")
+    UserInput = input()
+
+
+is_all_digits(UserInput)
+
+#check if the password entered is all digits
+while is_all_digits(UserInput) == True:
+    print("The password needs to include more than digits ")
+    print("Enter your password again")
+    UserInput = input()
+
+
 
 print(password_strength(UserInput))
+
 
