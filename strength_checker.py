@@ -79,38 +79,34 @@ def password_strength(password):
     return score
 
 def password_length(password):
+    if len(password) >= 8:
+        if len(password) <= 16:
 
-    if len(password) >= 8 and len(password) <= 16:
+            lowerCase = False
+            upperCase = False
+            character = False
+            number = False
 
-        lowerCase = False
-        upperCase = False
-        character = False
-        number = False
+            for char in password:
 
-        for char in password:
-            if char.islower():
-                return True
-            else:
-                print("The password is missing a lower case letter")
+                if char.islower():
+                    lowerCase = True
 
-            if char.isupper():
-                return True
-            else:
-                print("The password is missing a upper case letter")
+                if char.isupper():
+                    upperCase = True
 
-            if char.isdigit():
-                return True
-            else:
-                print("The password is missing a number")
+                if char.isdigit():
+                    number = True
 
-            if not char.islnum():
-                return True
-            else:
-                print("The password is missing a special character")
+                if not char.isalnum():
+                    character = True
 
-        return lowerCase and upperCase and character and number
+            return lowerCase and upperCase and character and number
+        else:
+            return False
     else:
         return False
+
 
 #checking for repeating characters
 def repeating_character(password, maxRepeat):
