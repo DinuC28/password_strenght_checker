@@ -105,8 +105,87 @@ def checking_sequence(password, max_sequence_length):
             return False
     return True
 
+def password_validation(password):
+
+    results = {
+        'is_empty': password == "",
+        'valid_length': valid_length(password),
+        'is_not_all_digits': not is_all_digits(password),
+        'repeating_character': repeating_character(password, 3),
+        'checking_sequence': checking_sequence(password, 2),
+    }
+
+    is_valid = (not results['is_empty'] and
+                results['valid_length'] and
+                results['is_not_all_digits'] and
+                results['repeating_character'] and
+                results['checking_sequence']
+                )
+
+    return is_valid, results
+
+def password_feedback(result):
+    if result['is_empty']:
+        print("The password is empty")
+        return
+
+    if not result['valid_length']:
+        print("The length of the password must be 8 or 16 characters")
+    else:
+        print("The password meets the length requirement")
+
+    if not result['is_not_all_digits']:
+        print("The password must contain more characters than just digots")
+
+    if not result['repeating_character']:
+        print("The password must not have more than 3 repeating characters ")
+
+    if not result['checking_sequence']:
+        print("The password must not contain sequential characters ")
 
 
+def password_length(password):
+    if len(password) >= 8:
+        if len(password) <= 16:
+
+            lowerCase = False
+            upperCase = False
+            character = False
+            number = False
+
+            for char in password:
+
+                if char.islower():
+                    lowerCase = True
+
+                if char.isupper():
+                    upperCase = True
+
+                if char.isdigit():
+                    number = True
+
+                if not char.isalnum():
+                    character = True
+
+            return lowerCase and upperCase and character and number
+        else:
+            return False
+    else:
+        return False
+
+#Main function
 print("Enter your password")
 user_password = input()
 
+is_valid, results = password_validation(user_password)
+password_feedback(results)
+
+while not is_valid:
+    print("\nPlease reenter your password")
+    user_password = input()
+
+    is_valid, result = password_strength(user_password)
+    password_feedback(result)
+
+print(password_feedback(results))
+print(password_strength(user_password))
