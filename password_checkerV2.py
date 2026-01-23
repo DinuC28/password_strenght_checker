@@ -1,64 +1,69 @@
-def password_length(password):
+import re
 
-    if len(password) >= 8 and len(password) <= 16:
+def password_strength(password):
 
-        lowerCase = False
-        upperCase = False
-        character = False
-        number = False
+    score = 0
+    length = len(password)
 
-        for char in password:
-            if char.islower():
-                return True
-            if char.isupper():
-                return True
-            if char.isdigit():
-                return True
-            if not char.islnum():
-                return True
+    #check the length of the password
+    if length < 6:
+        score += 0
+        print("The password is too short")
 
-        return lowerCase and upperCase and character and number
+    elif length <= 8:
+        score += 1
+        print("The password can be longer ")
+
+    elif length <= 16:
+        score += 2
+        print("The length of the password is average")
+
+    elif length <= 20:
+        score += 3
+        print("The length of the password is really good")
     else:
-        return False
-
-def repeating_character(password, maxRepeat):
-
-    character_count = 0
-    last_character = None
-
-    for i in range(1, len(password)):
-        last_character = password[i - 1]
-
-        if password[i] == last_character:
-            character_count += 1
-        else:
-            character_count = 0
-
-        if character_count == maxRepeat:
-            return False
-
-    return True
+        score += 4
+        print("The length of the password is above average")
 
 
-def digitChecker(password):
+
+    if re.search("[a-z]", password):
+        score += 2
+    else:
+        score -= 1
+        print("The password is missing a lower case letter")
+
+    if re.search("[A-Z]", password):
+        score += 2
+    else:
+        score -= 1
+        print("The password is missing a upper case letter")
+
+    if re.search("[0-9]", password):
+        score += 2
+    else:
+        score -= 1
+        print("The password is missing a number")
+
+    if re.search(r"(?=.*[!@#$%^&*]).*", password):
+        score += 4
+    else:
+        score -= 2
+        print("The password is missing a special character")
+
+    if score < 5:
+        print("Your password is not strong enough")
+
+    elif score <= 10:
+        print("Your password needs to be stronger")
+
+    elif score <= 15:
+        print("Your password is strong")
+
+    elif score > 15:
+        print("Your password is really strong and secure")
+
+
+def has_all_digits(password):
     return password.isdigit()
 
-
-
-def checking_sequence(password, max_sequence_length):
-
-    passwordValue = [ord(c) for c in password]
-
-    for i in range(len(passwordValue) - max_sequence_length + 1):
-        sequence = passwordValue[i:i + max_sequence_length]
-        if(sequence == list(range(sequence[0], sequence[0] + max_sequence_length))
-            or sequence == list(range(sequence[0], sequence[0] + max_sequence_length, -1))
-        ):
-            return False
-    return True
-
-
-UserInput = "Dinu"
-
-print(password_length(UserInput))
-print(repeating_character(UserInput, 2))
