@@ -145,7 +145,11 @@ def checking_sequence(password, max_sequence_length):
 def is_all_digits(password):
     return password.isdigit()
 
+def has_valid_length(password):
+    return 8 <= len(password) <= 16
 
+
+#Main function
 print("Enter your password")
 UserInput = input()
 
@@ -154,8 +158,8 @@ is_all_digits(UserInput)
 repeating_character(UserInput, 3)
 checking_sequence(UserInput, 2)
 
-if password_length(UserInput) == False:
-    print("The length of the password does not suit the requirement of 8 characters or more ")
+if has_valid_length(UserInput) == False:
+    print("The length of the password should be between 8 and 16 characters")
 else:
     print("The password suits the length requirement of 8 characters or more ")
 
