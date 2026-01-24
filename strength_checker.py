@@ -145,65 +145,50 @@ def checking_sequence(password, max_sequence_length):
 def is_all_digits(password):
     return password.isdigit()
 
+#check if the password meets the length requirement
 def has_valid_length(password):
     return 8 <= len(password) <= 16
 
+#check if the password meets all the validation checks and gives feedback back to the user
+def password_validation(password):
 
-#Main function
-print("Enter your password")
-UserInput = input()
+    valid_length = has_valid_length(password)
+    all_digits = is_all_digits(password)
+    has_repeats = repeating_character(password, 3)
+    has_sequence = checking_sequence(password, 2)
 
-password_length(UserInput)
-is_all_digits(UserInput)
-repeating_character(UserInput, 3)
-checking_sequence(UserInput, 2)
-
-if has_valid_length(UserInput) == False:
-    print("The length of the password should be between 8 and 16 characters")
-else:
-    print("The password suits the length requirement of 8 characters or more ")
-
-if is_all_digits(UserInput) == True:
-    print("The password needs to include more than digits")
-else:
-    print("The password includes more than digits")
-
-if repeating_character(UserInput, 3) == False:
-    print("The characters in the password should not repeat more than 3 times")
-
-if checking_sequence(UserInput, 2) == False:
-    print("The password needs to have a variety of characters")
-
-#validation checks for empty string, all digits, repeating characters, and sequence
-while UserInput == "" or password_length(UserInput) == False or is_all_digits(UserInput) == True or repeating_character(UserInput, 3) == False or checking_sequence(UserInput, 2) == False:
-
-    print("Please renter your password again")
-    UserInput = input()
-
-    password_length(UserInput)
-    is_all_digits(UserInput)
-    repeating_character(UserInput, 3)
-    checking_sequence(UserInput, 2)
-
-
-
-    if password_length(UserInput) == False:
-        print("The length of the password does not suit the requirement of 8 characters or more")
+    if not valid_length:
+        print("The password needs to include more than 8 characters or more ")
     else:
-        print("The password suits the length requirement of 8 characters or more ")
+        print("The password length meets the length requirement")
 
-    if is_all_digits(UserInput) == True:
+    if all_digits:
         print("The password needs to include more than digits")
     else:
         print("The password includes more than digits")
 
-    if repeating_character(UserInput, 3) == False:
-        print("The characters in the password should not repeat more than 3 times")
+    if not has_repeats:
+        print("The characters in the password cannot repeat more than 3 times")
 
-    if checking_sequence(UserInput, 2) == False:
-        print("The password needs to have a variety of characters")
+    if not has_sequence:
+        print("The password acnnot include any sequence of characters")
+
+    return (
+        password != "" and
+        valid_length and
+        has_repeats and
+        has_sequence
+    )
+
+#Main function
+while True:
+    password = input("Enter your password: ")
+    if password_validation(password):
+        break
+    else:
+        print("Invalid password")
 
 
-print(password_strength(UserInput))
+print(password_strength(password))
 
 
