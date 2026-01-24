@@ -180,6 +180,10 @@ def password_validation(password):
         has_sequence
     )
 
+def checking_patterns(password):
+
+    return password_validation(password)
+
 #Main function
 while True:
     password = input("Enter your password: ")
