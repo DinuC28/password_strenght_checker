@@ -158,7 +158,7 @@ def password_validation(password):
     has_sequence = checking_sequence(password, 2)
 
     if not valid_length:
-        print("The password needs to include more than 8 characters or more ")
+        print("The length of the password needs to be 8 characters or more")
     else:
         print("The password length meets the length requirement")
 
@@ -171,7 +171,7 @@ def password_validation(password):
         print("The characters in the password cannot repeat more than 3 times")
 
     if not has_sequence:
-        print("The password acnnot include any sequence of characters")
+        print("The password cannot include any sequence of characters")
 
     return (
         password != "" and
@@ -186,7 +186,7 @@ while True:
     if password_validation(password):
         break
     else:
-        print("Invalid password")
+        print("Please re-enter your password")
 
 
 print(password_strength(password))
