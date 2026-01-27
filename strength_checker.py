@@ -180,7 +180,7 @@ def password_validation(password):
         has_sequence
     )
 
-def checking_patterns(password):
+def checking_patterns(password, min_sequence = 3):
 
     password = password.lower()
 
@@ -204,8 +204,20 @@ def checking_patterns(password):
         "0p;/"
     ]
 
+    matching_patterns = []
 
-    return password_validation(password)
+    for pattern in patterns:
+        for i in range(len(pattern) - min_sequence + 1):
+            forward = pattern[i:i + min_sequence]
+            backward = forward[:: - 1]
+
+            if forward in backward:
+                matching_patterns.append(forward)
+            if backward in forward:
+                matching_patterns.append(backward)
+
+
+    return list(set(matching_patterns))
 
 #Main function
 while True:
