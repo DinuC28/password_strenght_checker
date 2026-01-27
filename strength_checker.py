@@ -156,6 +156,7 @@ def password_validation(password):
     all_digits = is_all_digits(password)
     has_repeats = repeating_character(password, 3)
     has_sequence = checking_sequence(password, 2)
+    has_pattern = checking_patterns(password, 3)
 
     if not valid_length:
         print("The length of the password needs to be 8 characters or more")
@@ -173,11 +174,15 @@ def password_validation(password):
     if not has_sequence:
         print("The password cannot include any sequence of characters")
 
+    if has_pattern:
+        print("The password includes a common keyboard pattern:")
+
     return (
         password != "" and
         valid_length and
         has_repeats and
-        has_sequence
+        has_sequence and
+        has_pattern
     )
 
 def checking_patterns(password, min_sequence = 3):
@@ -211,9 +216,9 @@ def checking_patterns(password, min_sequence = 3):
             forward = pattern[i:i + min_sequence]
             backward = forward[:: - 1]
 
-            if forward in backward:
+            if forward in password:
                 matching_patterns.append(forward)
-            if backward in forward:
+            if backward in password:
                 matching_patterns.append(backward)
 
 
@@ -226,7 +231,6 @@ while True:
         break
     else:
         print("Please re-enter your password")
-
 
 print(password_strength(password))
 
