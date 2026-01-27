@@ -182,6 +182,29 @@ def password_validation(password):
 
 def checking_patterns(password):
 
+    password = password.lower()
+
+    patterns = [
+        #common horizontal qwerty keyboard patterns
+        '1234567890-=',
+        'qwertyuiop[]',
+        'asdfghjkl;"',
+        'zxcvbnm,./'
+
+        #common vertical qwerty keyboard patterns
+        "1qaz",
+        "2wsx",
+        "3wxyz",
+        "4rfv",
+        "5tgb",
+        "6yhn",
+        "7ujm",
+        "8ik,",
+        "9ol.",
+        "0p;/"
+    ]
+
+
     return password_validation(password)
 
 #Main function
