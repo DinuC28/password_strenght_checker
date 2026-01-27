@@ -172,7 +172,7 @@ def password_validation(password):
         print("The characters in the password cannot repeat more than 3 times")
 
     if not has_sequence:
-        print("The password cannot include any sequence of characters")
+        print("The password cannot include a sequence of characters")
 
     if has_pattern:
         print("The password includes a common keyboard pattern:")
@@ -182,7 +182,8 @@ def password_validation(password):
         valid_length and
         has_repeats and
         has_sequence and
-        has_pattern
+        not has_pattern and
+        not all_digits
     )
 
 def checking_patterns(password, min_sequence = 3):
