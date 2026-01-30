@@ -1,4 +1,5 @@
 import re
+import os
 
 def password_strength(password):
 
@@ -88,7 +89,6 @@ def password_length(password):
             number = False
 
             for char in password:
-
                 if char.islower():
                     lowerCase = True
 
@@ -226,13 +226,31 @@ def checking_patterns(password, min_sequence = 3):
     return list(set(matching_patterns))
 
 #Main function
+file_path = "used_passwords.txt"
+
 while True:
     password = input("Enter your password: ")
+
     if password_validation(password):
+
+        #read the used_passwords file if the password inputted exists in the file
+        with open(file_path, "r") as file:
+            used_passwords = file.read().splitlines()
+
+        #check if the user has already used a password
+        if password in used_passwords:
+            print("The password has already been used")
+            continue
+
+        #save the password in the used_passwords file
+        with open(file_path, "a") as file:
+            file.write(password + "\n")
+
         break
     else:
         print("Please re-enter your password")
 
+#check the score and the strength of the password
 print(password_strength(password))
 
 
