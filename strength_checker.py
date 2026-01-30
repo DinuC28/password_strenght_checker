@@ -230,9 +230,19 @@ file_path = "used_passwords.txt"
 
 while True:
     password = input("Enter your password: ")
+
     if password_validation(password):
-        with open("used_passwords.txt", "a") as file:
+
+        with open(file_path, "r") as file:
+            used_passwords = file.read().splitlines()
+
+        if password in used_passwords:
+            print("The password has already been used")
+            continue
+
+        with open(file_path, "a") as file:
             file.write(password + "\n")
+
         break
     else:
         print("Please re-enter your password")
