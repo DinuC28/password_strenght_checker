@@ -233,13 +233,16 @@ while True:
 
     if password_validation(password):
 
+        #read the used_passwords file if the password inputted exists in the file
         with open(file_path, "r") as file:
             used_passwords = file.read().splitlines()
 
+        #check if the user has already used a password
         if password in used_passwords:
             print("The password has already been used")
             continue
 
+        #save the password in the used_passwords file
         with open(file_path, "a") as file:
             file.write(password + "\n")
 
@@ -247,6 +250,7 @@ while True:
     else:
         print("Please re-enter your password")
 
+#check the score and the strength of the password
 print(password_strength(password))
 
 
