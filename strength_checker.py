@@ -219,29 +219,22 @@ def checking_patterns(password, min_sequence = 3):
 
             if forward in password:
                 matching_patterns.append(forward)
+
             if backward in password:
                 matching_patterns.append(backward)
-
 
     return list(set(matching_patterns))
 
 def sequence_checking(password, min_sequence = 3):
     for i in range(len(password) - min_sequence + 1):
         sequence = password[i:i + min_sequence]
-        is_ascending = True
-        is_descending = False
 
-        for j in range(len(sequence) - 1):
-            if ord(sequence[j + 1]) != ord(sequence[j]) + 1:
-                is_ascending = False
-                break
-            elif ord(sequence[j + 1]) == ord(sequence[j]) - 1:
-                is_ascending = False
-                break
-        if is_ascending:
-            return True
-        elif is_descending:
-            return True
+        if ord(sequence[0]) != ord(sequence[-1]) + 1:
+            for j in range(1, len(sequence) - 1):
+                return True
+        if ord(sequence[0]) != ord(sequence[-1]) - 1:
+            for j in range(1, len(sequence) - 1):
+                return True
     return False
 
 
@@ -278,8 +271,8 @@ print(password_strength(password))
 print(sequence_checking("abc123"))
 print(sequence_checking("pass789"))
 print(sequence_checking("654321"))
-
 print(sequence_checking("123456"))
 print(sequence_checking("54321"))
+print(sequence_checking("Dinu2New"))
 
 
