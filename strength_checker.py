@@ -229,12 +229,12 @@ def sequence_checking(password, min_sequence = 3):
     for i in range(len(password) - min_sequence + 1):
         sequence = password[i:i + min_sequence]
 
-        if ord(sequence[0]) != ord(sequence[-1]) + 1:
-            for j in range(1, len(sequence) - 1):
-                return True
-        if ord(sequence[0]) != ord(sequence[-1]) - 1:
-            for j in range(1, len(sequence) - 1):
-                return True
+        is_accending = all(ord(sequence[j]) == ord(sequence[j - 1]) + 1 for j in range(1, len(sequence)))
+
+        is_deccending = all(ord(sequence[j]) == ord(sequence[j - 1]) - 1 for j in range(1, len(sequence)))
+
+        if is_accending or is_deccending:
+            return True
     return False
 
 
@@ -274,5 +274,6 @@ print(sequence_checking("654321"))
 print(sequence_checking("123456"))
 print(sequence_checking("54321"))
 print(sequence_checking("Dinu2New"))
+print(sequence_checking("Summer"))
 
 
