@@ -155,7 +155,7 @@ def password_validation(password):
     valid_length = has_valid_length(password)
     all_digits = is_all_digits(password)
     has_repeats = repeating_character(password, 3)
-    has_sequence = checking_sequence(password, 2)
+    has_sequence = checking_sequence(password, 5)
     has_pattern = checking_patterns(password, 3)
 
     if not valid_length:
@@ -219,15 +219,28 @@ def checking_patterns(password, min_sequence = 3):
 
             if forward in password:
                 matching_patterns.append(forward)
+
             if backward in password:
                 matching_patterns.append(backward)
 
-
     return list(set(matching_patterns))
+
+def sequence_checking(password, min_sequence = 3):
+    for i in range(len(password) - min_sequence + 1):
+        sequence = password[i:i + min_sequence]
+
+        is_accending = all(ord(sequence[j]) == ord(sequence[j - 1]) + 1 for j in range(1, len(sequence)))
+
+        is_deccending = all(ord(sequence[j]) == ord(sequence[j - 1]) - 1 for j in range(1, len(sequence)))
+
+        if is_accending or is_deccending:
+            return True
+    return False
+
 
 #Main function
 file_path = "used_passwords.txt"
-
+"""
 while True:
     password = input("Enter your password: ")
 
@@ -252,5 +265,15 @@ while True:
 
 #check the score and the strength of the password
 print(password_strength(password))
+"""
+
+
+print(sequence_checking("abc123"))
+print(sequence_checking("pass789"))
+print(sequence_checking("654321"))
+print(sequence_checking("123456"))
+print(sequence_checking("54321"))
+print(sequence_checking("Dinu2New"))
+print(sequence_checking("Summer"))
 
 
