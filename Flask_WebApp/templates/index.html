@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password strength checker</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+
+<header>
+    <h1>Password strength checker</h1>
+</header>
+
+
+    <div class="container">
+        <form method="POST" action="password_checker">
+        <h1>Check how secure is your password</h1>
+        <h3>Please enter the password below:</h3>
+        <div class="input">
+            <label>
+                <input type="text" name="password">
+                <input type="submit" value="Check Password" class="button">
+            </label>
+        </div>
+       </form>
+        {% if checked %}
+        <div class="result">
+            {{ checked | safe }}
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
