@@ -235,9 +235,10 @@ def sequence_checking(password, min_sequence = 3):
 
         if is_accending or is_deccending:
             return True
+
     return False
 
-
+"""
 #Main function
 file_path = "used_passwords.txt"
 
@@ -266,7 +267,7 @@ while True:
 #check the score and the strength of the password
 print(password_strength(password))
 
-"""
+
 print(sequence_checking("abc123"))
 print(sequence_checking("pass789"))
 print(sequence_checking("654321"))

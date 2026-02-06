@@ -54,4 +54,10 @@ h3{
 .button:hover{
     background-color: aqua;
 }
+.result{
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    border-left: 4px solid;
+}
 
