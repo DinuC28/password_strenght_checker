@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-@app.route("/", methods=["POST", "GET"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    #send the password to the python file
-    if request.method == "POST":
-        current_password = request.form.get("password")
-        
-    return render_template("index.html")
-
+    if request.method == 'GET':
+        return render_template("index.html")
+    elif request.method == 'POST':
+        return ""
+    return None
 
 
 if __name__ == "__main__":

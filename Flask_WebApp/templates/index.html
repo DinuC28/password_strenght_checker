@@ -14,21 +14,23 @@
 </header>
 
 
-<form>
+<form method="POST" action="{{ url_for('index') }}">
     <div class="container">
         <h1>Check how secure is your password</h1>
-        <h3>Please enter the password:</h3>
+        <h3>Please enter the password below:</h3>
 
         <div class="input">
             <label>
                 <input type="text" name="password">
+                <input type="submit" value="Check Password" class="button">
             </label>
-            <button>Check</button>
+
         </div>
 
     </div>
 
 </form>
+
 
 </body>
 </html>
