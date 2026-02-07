@@ -42,7 +42,7 @@ h3{
     margin-bottom: 10px;
     font-size: x-large;
 }
-.button{
+button{
     background-color: deepskyblue;
     font-family: sans-serif;
     border-style: solid;
@@ -51,7 +51,7 @@ h3{
     margin: 5px;
     padding: 10px;
 }
-.button:hover{
+button:hover{
     background-color: aqua;
 }
 .result{

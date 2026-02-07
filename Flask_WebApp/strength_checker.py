@@ -152,6 +152,8 @@ def has_valid_length(password):
 #check if the password meets all the validation checks and gives feedback back to the user
 def password_validation(password):
 
+    feedback_messages = []
+
     valid_length = has_valid_length(password)
     all_digits = is_all_digits(password)
     has_repeats = repeating_character(password, 3)
@@ -159,32 +161,35 @@ def password_validation(password):
     has_pattern = checking_patterns(password, 3)
 
     if not valid_length:
-        print("The length of the password needs to be 8 characters or more")
+        feedback_messages.append("The length of the password needs to be 8 characters or more")
     else:
-        print("The password length meets the length requirement")
+        feedback_messages.append("The password length meets the length requirement")
 
     if all_digits:
-        print("The password needs to include more than digits")
+        feedback_messages.append("The password needs to include more than digits")
     else:
-        print("The password includes more than digits")
+        feedback_messages.append("The password includes more than digits")
 
     if not has_repeats:
-        print("The characters in the password cannot repeat more than 3 times")
+        feedback_messages.append("The characters in the password cannot repeat more than 3 times")
 
     if not has_sequence:
-        print("The password cannot include a sequence of characters")
+        feedback_messages.append("The password cannot include a sequence of characters")
 
     if has_pattern:
-        print("The password includes a common keyboard pattern:")
+        feedback_messages.append("The password includes a common keyboard pattern:")
 
-    return (
-        password != "" and
-        valid_length and
-        has_repeats and
-        has_sequence and
-        not has_pattern and
-        not all_digits
+
+    validation = (
+            password != "" and
+            valid_length and
+            has_repeats and
+            has_sequence and
+            not has_pattern and
+            not all_digits
     )
+
+    return validation, feedback_messages
 
 def checking_patterns(password, min_sequence = 3):
 
