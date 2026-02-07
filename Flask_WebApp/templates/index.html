@@ -15,16 +15,17 @@
 
 
     <div class="container">
-        <form method="POST" action="password_checker">
+        <form method="POST" action="check_password">
         <h1>Check how secure is your password</h1>
         <h3>Please enter the password below:</h3>
         <div class="input">
             <label>
                 <input type="text" name="password">
-                <input type="submit" value="Check Password" class="button">
+                <button type="submit">Check password</button>
             </label>
         </div>
        </form>
+
         {% if checked %}
         <div class="result">
             {{ checked | safe }}
