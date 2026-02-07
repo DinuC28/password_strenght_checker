@@ -5,27 +5,28 @@ def password_strength(password):
 
     score = 0
     length = len(password)
+    score_messages = []
 
 
     #check the length of the password
     if length < 6:
         score += 0
-        print("The password is too short")
+        score_messages.append("The password is too short")
 
     elif length <= 8:
-        print("The password can be longer")
+        score_messages.append("The password can be longer")
         score += 1
 
     elif length <= 16:
-        print("The length of the password is average")
+        score_messages.append("The length of the password is average")
         score += 2
 
     elif length <= 20:
-        print("The length of the password is really good")
+        score_messages.append("The length of the password is really good")
         score += 3
 
     elif length > 20:
-        print("The length of the password is above average")
+        score_messages.append("The length of the password is above average")
         score += 4
 
 
@@ -34,50 +35,50 @@ def password_strength(password):
         score += 2
     else:
         score -= 1
-        print("The password is missing a lower case letter")
+        score_messages.append("The password is missing a lower case letter")
 
     #checking for upper case letters
     if re.search(r"(?=.*[A-Z]).*", password):
         score += 2
     else:
         score -= 1
-        print("The password is missing a upper case letter")
+        score_messages.append("The password is missing a upper case letter")
 
     #check for numbers
     if re.search(r"(?=.*[0-9]).*", password):
         score += 4
     else:
         score -= 2
-        print("The password is missing a number")
+        score_messages.append("The password is missing a number")
 
     #check for special characters
     if re.search(r"(?=.*[!@#$%^&*]).*", password):
         score += 4
     else:
         score -= 2
-        print("The password is missing a special character")
+        score_messages.append("The password is missing a special character")
 
 
 
     #check the score of the password
     if score < 5:
-        print("The password is not strong enough")
+        score_messages.append("The password is not strong enough")
 
     elif score <=10:
-        print("The password needs to be stronger")
+        score_messages.append("The password needs to be stronger")
 
     elif score <=15:
-        print("The password is strong")
+        score_messages.append("The password is strong")
 
     elif score > 15:
-        print("The password is really strong")
+        score_messages.append("The password is really strong")
 
 
     #check if the score is under 0 and make it 0
     if score < 0:
-        return 0
+        score = 0
 
-    return score
+    return score, score_messages
 
 def password_length(password):
     if len(password) >= 8:
@@ -176,7 +177,7 @@ def password_validation(password):
     if not has_sequence:
         feedback_messages.append("The password cannot include a sequence of characters")
 
-    if has_pattern:
+    if  has_pattern:
         feedback_messages.append("The password includes a common keyboard pattern:")
 
 
