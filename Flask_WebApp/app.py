@@ -12,6 +12,9 @@ def check_password():
 
     password = request.form['password']
 
+    with open(file_path, "r") as file:
+        used_passwords = file.read().splitlines()
+
     validation, feedback_messages = password_validation(password)
     score, strength_feedback = password_strength(password)
     checked = f'<h3>Strength Score: {score}/15</h3>'
