@@ -9,11 +9,11 @@ def password_strength(password):
 
 
     #check the length of the password
-    if length < 6:
+    if length < 8:
         score += 0
         score_messages.append("The password is too short")
 
-    elif length <= 8:
+    elif length == 8:
         score_messages.append("The password can be longer")
         score += 1
 

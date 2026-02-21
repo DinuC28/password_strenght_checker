@@ -11,9 +11,16 @@ def check_password():
     file_path = "used_passwords.txt"
 
     password = request.form['password']
+    length = len(password)
 
     with open(file_path, "r") as file:
-        used_passwords = file.read().splitlines()
+        used_password = file.read().splitlines()
+
+    if password in used_password:
+        print("The password has already been used")
+    else:
+        with open(file_path, "a") as file:
+            file.write(password + "\n")
 
     validation, feedback_messages = password_validation(password)
     score, strength_feedback = password_strength(password)
