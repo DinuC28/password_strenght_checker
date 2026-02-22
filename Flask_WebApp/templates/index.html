@@ -26,11 +26,12 @@
         </div>
        </form>
 
-        {% if checked %}
+        {% if checked or used %}
         <div class="result">
             {{ checked | safe }}
         </div>
         {% endif %}
+
     </div>
 
 </body>
