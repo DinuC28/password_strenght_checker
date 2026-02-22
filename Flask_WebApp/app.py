@@ -11,12 +11,22 @@ def check_password():
     file_path = "used_passwords.txt"
 
     password = request.form['password']
+    length = len(password)
+
 
     with open(file_path, "r") as file:
-        used_passwords = file.read().splitlines()
+        used_password = file.read().splitlines()
+
+    if password in used_password:
+        checked = '<h3>This password has already been used</h3>'
+        checked += '<div class = "feedback error">Please enter a different password.</div>'
+        return render_template('index.html', checked=checked)
 
     validation, feedback_messages = password_validation(password)
-    score, strength_feedback = password_strength(password)
+    score, strength_feedback = password_strength(password)#
+
+    with open(file_path, "a") as file:
+        file.write(password + '\n')
     checked = f'<h3>Strength Score: {score}/15</h3>'
 
     checked += '<h4>Strength Analysis:</h4>'
