@@ -1,5 +1,4 @@
 import re
-import os
 
 def password_strength(password):
 
@@ -158,7 +157,7 @@ def password_validation(password):
     valid_length = has_valid_length(password)
     all_digits = is_all_digits(password)
     has_repeats = repeating_character(password, 3)
-    has_sequence = checking_sequence(password, 5)
+    has_sequence = sequence_checking(password, 3)
     has_pattern = checking_patterns(password, 3)
 
     if not valid_length:

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from strength_checker import password_validation, password_strength
+import hashlib
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -12,7 +13,10 @@ def check_password():
 
     password = request.form['password']
     length = len(password)
+    hashing = hashlib.new("sha256")
 
+    hashing.update(password.encode())
+    print(hashing.hexdigest())
 
     with open(file_path, "r") as file:
         used_password = file.read().splitlines()
