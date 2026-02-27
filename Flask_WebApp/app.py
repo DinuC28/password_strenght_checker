@@ -28,6 +28,7 @@ def check_password():
         checked += '<div class = "feedback error">Please enter a different password.</div>'
         return render_template('index.html', checked=checked)
 
+
     validation, feedback_messages = password_validation(password)
     score, strength_feedback = password_strength(password)#
 
