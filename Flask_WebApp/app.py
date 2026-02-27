@@ -16,12 +16,14 @@ def check_password():
     hashing = hashlib.new("sha256")
 
     hashing.update(password.encode())
-    print(hashing.hexdigest())
+
+    H_password = hashing.hexdigest()
+
 
     with open(file_path, "r") as file:
         used_password = file.read().splitlines()
 
-    if password in used_password:
+    if H_password in used_password:
         checked = '<h3>This password has already been used</h3>'
         checked += '<div class = "feedback error">Please enter a different password.</div>'
         return render_template('index.html', checked=checked)
@@ -30,10 +32,11 @@ def check_password():
     score, strength_feedback = password_strength(password)#
 
     with open(file_path, "a") as file:
-        file.write(password + '\n')
-    checked = f'<h3>Strength Score: {score}/15</h3>'
+        file.write(H_password + '\n')
 
+    checked = f'<h3>Strength Score: {score}/15</h3>'
     checked += '<h4>Strength Analysis:</h4>'
+
     for message in strength_feedback:
         checked += f'<div class = "feedback">{message}</div>'
 
