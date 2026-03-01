@@ -1,6 +1,10 @@
+import os
+
 from flask import Flask, render_template, request, redirect, url_for
 from strength_checker import password_validation, password_strength
 import hashlib
+import base64
+import uuid
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -10,30 +14,36 @@ def index():
 def check_password():
 
     file_path = "used_passwords.txt"
-
     password = request.form['password']
-    length = len(password)
-    hashing = hashlib.new("sha256")
-
-    hashing.update(password.encode())
-
-    H_password = hashing.hexdigest()
 
 
     with open(file_path, "r") as file:
         used_password = file.read().splitlines()
 
-    if H_password in used_password:
-        checked = '<h3>This password has already been used</h3>'
-        checked += '<div class = "feedback error">Please enter a different password.</div>'
-        return render_template('index.html', checked=checked)
+    for entry in used_password:
+        if ':' not in entry:
+            continue
+        salted_password, stored_hash = entry.split(':', 1)
+        hashing = hashlib.sha256()
+        hashing.update(password.encode() + salted_password.encode())
+        check_hash = base64.b64encode(hashing.digest()).decode()
+
+        if check_hash == stored_hash:
+            checked = '<h3>This password has already been used</h3>'
+            checked += '<div class = "feedback error">Please enter a different password.</div>'
+            return render_template('index.html', checked=checked)
+
+    salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).decode()
+    hashing = hashlib.sha256()
+    hashing.update(password.encode() + salt.encode())
+    hashed_password = base64.b64encode(hashing.digest()).decode()
+
+    with open(file_path, "a") as file:
+        file.write(salt + ':' + hashed_password + '\n')
 
 
     validation, feedback_messages = password_validation(password)
-    score, strength_feedback = password_strength(password)#
-
-    with open(file_path, "a") as file:
-        file.write(H_password + '\n')
+    score, strength_feedback = password_strength(password)
 
     checked = f'<h3>Strength Score: {score}/15</h3>'
     checked += '<h4>Strength Analysis:</h4>'
