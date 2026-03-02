@@ -5,6 +5,8 @@ from strength_checker import password_validation, password_strength
 import hashlib
 import base64
 import uuid
+import os
+pepper = os.environ.get("PEPPERING_VALUE", "peppered_password")
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -25,7 +27,7 @@ def check_password():
             continue
         salted_password, stored_hash = entry.split(':', 1)
         hashing = hashlib.sha256()
-        hashing.update(password.encode() + salted_password.encode())
+        hashing.update(password.encode() + salted_password.encode() + pepper.encode())
         check_hash = base64.b64encode(hashing.digest()).decode()
 
         if check_hash == stored_hash:
@@ -35,7 +37,7 @@ def check_password():
 
     salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).decode()
     hashing = hashlib.sha256()
-    hashing.update(password.encode() + salt.encode())
+    hashing.update(password.encode() + salt.encode() + pepper.encode())
     hashed_password = base64.b64encode(hashing.digest()).decode()
 
     with open(file_path, "a") as file:
