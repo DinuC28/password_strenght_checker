@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask, render_template, request, redirect, url_for
 from strength_checker import password_validation, password_strength
 import hashlib
