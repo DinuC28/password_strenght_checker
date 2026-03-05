@@ -21,6 +21,7 @@ def check_password():
 
     if password.lower() in common_password:
         checked = '<div class = "feedback error">This password has been found in a common password list</div>'
+        return render_template('index.html', checked = checked)
 
     with open(file_path, "r") as file:
         used_password = file.read().splitlines()
@@ -36,7 +37,7 @@ def check_password():
         if check_hash == stored_hash:
             checked = '<h3>This password has already been used</h3>'
             checked += '<div class = "feedback error">Please enter a different password.</div>'
-            return render_template('index.html', checked=checked)
+            return render_template('index.html', checked = checked)
 
     salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).decode()
     hashing = hashlib.sha256()
@@ -61,9 +62,7 @@ def check_password():
         checked += f'<div class = "feedback">{message}</div>'
 
 
-
     return render_template('index.html', checked=checked)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
