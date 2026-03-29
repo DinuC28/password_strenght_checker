@@ -127,19 +127,6 @@ def repeating_character(password, maxRepeat):
 
     return True
 
-#checking for sequence of characters
-def checking_sequence(password, max_sequence_length):
-
-    passwordValue = [ord(c) for c in password]
-
-    for i in range(len(passwordValue) - max_sequence_length + 1):
-        sequence = passwordValue[i:i + max_sequence_length]
-        if(sequence == list(range(sequence[0], sequence[0] + max_sequence_length))
-                or sequence == list(range(sequence[0], sequence[0] + max_sequence_length, -1))
-        ):
-            return False
-    return True
-
 
 #check if all the characters in the password are digits
 def is_all_digits(password):
@@ -147,7 +134,7 @@ def is_all_digits(password):
 
 #check if the password meets the length requirement
 def has_valid_length(password):
-    return 8 <= len(password) <= 16
+    return 8 <= len(password) <= 64
 
 #check if the password meets all the validation checks and gives feedback back to the user
 def password_validation(password):
@@ -173,10 +160,10 @@ def password_validation(password):
     if not has_repeats:
         feedback_messages.append("The characters in the password cannot repeat more than 3 times")
 
-    if not has_sequence:
+    if has_sequence:
         feedback_messages.append("The password cannot include a sequence of characters")
 
-    if  has_pattern:
+    if not has_pattern:
         feedback_messages.append("The password includes a common keyboard pattern:")
 
 
@@ -200,7 +187,7 @@ def checking_patterns(password, min_sequence = 3):
         '1234567890-=',
         'qwertyuiop[]',
         'asdfghjkl;"',
-        'zxcvbnm,./'
+        'zxcvbnm,./',
 
         #common vertical qwerty keyboard patterns
         "1qaz",
@@ -243,36 +230,8 @@ def sequence_checking(password, min_sequence = 3):
 
     return False
 
+
 """
-#Main function
-file_path = "used_passwords.txt"
-
-while True:
-    password = input("Enter your password: ")
-
-    if password_validation(password):
-
-        #read the used_passwords file if the password inputted exists in the file
-        with open(file_path, "r") as file:
-            used_passwords = file.read().splitlines()
-
-        #check if the user has already used a password
-        if password in used_passwords:
-            print("The password has already been used")
-            continue
-
-        #save the password in the used_passwords file
-        with open(file_path, "a") as file:
-            file.write(password + "\n")
-
-        break
-    else:
-        print("Please re-enter your password")
-
-#check the score and the strength of the password
-print(password_strength(password))
-
-
 print(sequence_checking("abc123"))
 print(sequence_checking("pass789"))
 print(sequence_checking("654321"))
@@ -281,4 +240,5 @@ print(sequence_checking("54321"))
 print(sequence_checking("Dinu2New"))
 print(sequence_checking("Summer"))
 """
+
 
