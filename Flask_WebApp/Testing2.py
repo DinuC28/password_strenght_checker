@@ -6,7 +6,7 @@ def sample_test(sample = 1000):
     result = []
 
     with open('rockyou.txt', encoding = 'utf-8') as file:
-        password_sample = [next(file) for i in range(sample)]
+        password_sample = [next(file).strip() for i in range(sample)]
 
     for password in password_sample:
         score = password_strength(password)
