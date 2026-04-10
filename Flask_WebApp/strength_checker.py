@@ -29,7 +29,13 @@ def password_strength(password):
         score += 4
 
 
+    #checking character variety using regex
     #checking for lower case letters
+    """
+    Max O'Didily (2023). Check the Strength of a Password Using Python. [online] YouTube. Available at: https://www.youtube.com/watch?v=oPZJxF1a8o8&list=PLrqwM2iFagujzmtufjj0lbCVvmyattGLc&index=3 [Accessed 9 Apr. 2026].
+    Note: The YouTube tutorial was used for the regex logic 
+‌
+    """
     if re.search(r"(?=.*[a-z]).*", password):
         score += 2
     else:
@@ -79,36 +85,13 @@ def password_strength(password):
 
     return score, score_messages
 
-def password_length(password):
-    if len(password) >= 8:
-        if len(password) <= 16:
-
-            lowerCase = False
-            upperCase = False
-            character = False
-            number = False
-
-            for char in password:
-                if char.islower():
-                    lowerCase = True
-
-                if char.isupper():
-                    upperCase = True
-
-                if char.isdigit():
-                    number = True
-
-                if not char.isalnum():
-                    character = True
-
-            return lowerCase and upperCase and character and number
-        else:
-            return False
-    else:
-        return False
-
 
 #checking for repeating characters
+"""
+Max O'Didily (2022). Checking for Repeating Characters in a Password Using Python - Simple Validation. [online] YouTube. Available at: https://www.youtube.com/watch?v=fr3SmErTlnI&list=PLrqwM2iFagujzmtufjj0lbCVvmyattGLc&index=2 [Accessed 8 January. 2026].
+Note: The repeating character function was implemented from the YouTube tutorial
+‌
+"""
 def repeating_character(password, maxRepeat):
 
     character_count = 0
@@ -127,27 +110,19 @@ def repeating_character(password, maxRepeat):
 
     return True
 
-#checking for sequence of characters
-def checking_sequence(password, max_sequence_length):
-
-    passwordValue = [ord(c) for c in password]
-
-    for i in range(len(passwordValue) - max_sequence_length + 1):
-        sequence = passwordValue[i:i + max_sequence_length]
-        if(sequence == list(range(sequence[0], sequence[0] + max_sequence_length))
-                or sequence == list(range(sequence[0], sequence[0] + max_sequence_length, -1))
-        ):
-            return False
-    return True
-
 
 #check if all the characters in the password are digits
+"""
+Max O'Didily (2023). Python Password Validation: Checking if a Password Contains Only Digits. [online] YouTube. Available at: https://www.youtube.com/watch?v=yOduH7xXpCw&list=PLrqwM2iFagujzmtufjj0lbCVvmyattGLc&index=4 [Accessed 10 Apr. 2026].
+Note: The function to check if all the characters in the password are digits was implemented from the YouTube tutorial
+‌
+"""
 def is_all_digits(password):
     return password.isdigit()
 
 #check if the password meets the length requirement
 def has_valid_length(password):
-    return 8 <= len(password) <= 16
+    return 8 <= len(password) <= 64
 
 #check if the password meets all the validation checks and gives feedback back to the user
 def password_validation(password):
@@ -173,10 +148,10 @@ def password_validation(password):
     if not has_repeats:
         feedback_messages.append("The characters in the password cannot repeat more than 3 times")
 
-    if not has_sequence:
+    if has_sequence:
         feedback_messages.append("The password cannot include a sequence of characters")
 
-    if  has_pattern:
+    if has_pattern:
         feedback_messages.append("The password includes a common keyboard pattern:")
 
 
@@ -191,21 +166,26 @@ def password_validation(password):
 
     return validation, feedback_messages
 
+
+"""
+Note: Google Gemini was used to debug this function
+Google (2026) Gemini [Large language model]. Available at: https://gemini.google.com (Accessed: 28/January/2026)
+"""
 def checking_patterns(password, min_sequence = 3):
 
     password = password.lower()
 
-    patterns = [
+    qwerty_keyboard = [
         #common horizontal qwerty keyboard patterns
         '1234567890-=',
         'qwertyuiop[]',
         'asdfghjkl;"',
-        'zxcvbnm,./'
+        'zxcvbnm,./',
 
         #common vertical qwerty keyboard patterns
         "1qaz",
         "2wsx",
-        "3wxyz",
+        "3edc",
         "4rfv",
         "5tgb",
         "6yhn",
@@ -215,21 +195,24 @@ def checking_patterns(password, min_sequence = 3):
         "0p;/"
     ]
 
-    matching_patterns = []
+    found_patterns = False
 
-    for pattern in patterns:
+    for pattern in qwerty_keyboard:
         for i in range(len(pattern) - min_sequence + 1):
-            forward = pattern[i:i + min_sequence]
-            backward = forward[:: - 1]
 
-            if forward in password:
-                matching_patterns.append(forward)
+            forward_pattern = pattern[i:i + min_sequence]
+            backward_pattern = forward_pattern[:: - 1]
 
-            if backward in password:
-                matching_patterns.append(backward)
+            if forward_pattern in password or backward_pattern in password:
+                found_patterns = True
 
-    return list(set(matching_patterns))
+    return found_patterns
 
+
+"""
+Note: Google Gemini was used to debug the function below. The implementation is my original idea as well as the logic behind the function
+Google (2026) Gemini [Large language model]. Available at: https://gemini.google.com (Accessed: 31/January/2026)
+"""
 def sequence_checking(password, min_sequence = 3):
     for i in range(len(password) - min_sequence + 1):
         sequence = password[i:i + min_sequence]
@@ -242,43 +225,4 @@ def sequence_checking(password, min_sequence = 3):
             return True
 
     return False
-
-"""
-#Main function
-file_path = "used_passwords.txt"
-
-while True:
-    password = input("Enter your password: ")
-
-    if password_validation(password):
-
-        #read the used_passwords file if the password inputted exists in the file
-        with open(file_path, "r") as file:
-            used_passwords = file.read().splitlines()
-
-        #check if the user has already used a password
-        if password in used_passwords:
-            print("The password has already been used")
-            continue
-
-        #save the password in the used_passwords file
-        with open(file_path, "a") as file:
-            file.write(password + "\n")
-
-        break
-    else:
-        print("Please re-enter your password")
-
-#check the score and the strength of the password
-print(password_strength(password))
-
-
-print(sequence_checking("abc123"))
-print(sequence_checking("pass789"))
-print(sequence_checking("654321"))
-print(sequence_checking("123456"))
-print(sequence_checking("54321"))
-print(sequence_checking("Dinu2New"))
-print(sequence_checking("Summer"))
-"""
 

@@ -16,9 +16,11 @@ def check_password():
     file_path = "used_passwords.txt"
     password = request.form['password']
 
+    #open the common list of passwords
     with open('rockyou.txt', encoding = 'latin-1') as file:
         common_password = [line.strip() for line in file.readlines()]
 
+    #check if the password is in the dictionary
     if password.lower() in common_password:
         checked = '<div class = "feedback error">This password has been found in a common password list</div>'
         return render_template('index.html', checked = checked)
@@ -26,6 +28,11 @@ def check_password():
     with open(file_path, "r") as file:
         used_password = file.read().splitlines()
 
+
+    """
+    Note: Google Gemini was used to debug this function
+    Anthropic (2026) Claude [Large language model]. Available at:  https://claude.ai (Accessed: 02/March/2026)
+    """
     for entry in used_password:
         if ':' not in entry:
             continue
@@ -51,7 +58,7 @@ def check_password():
     validation, feedback_messages = password_validation(password)
     score, strength_feedback = password_strength(password)
 
-    checked = f'<h3>Strength Score: {score}/15</h3>'
+    checked = f'<h3>Strength Score: {score}/16</h3>'
     checked += '<h4>Strength Analysis:</h4>'
 
     for message in strength_feedback:
